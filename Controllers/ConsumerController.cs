@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,15 +8,16 @@ using kafka_dotnet_service.Services;
 namespace kafka_dotnet_service.Controllers
 {
     [Route("api/[controller]")]
-    public class ProducerController : Controller
+    public class ConsumerController : Controller
     {
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            Kafka kafka = new Kafka();
-            kafka.InitKafka();
-            
+
+            Consumer consumer = new Consumer();
+            consumer.Consume();
+            //kafka.InitKafka();
             return new string[] { "value1", "value2" };
         }
 
@@ -24,6 +25,7 @@ namespace kafka_dotnet_service.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
+            
             return "value";
         }
 
