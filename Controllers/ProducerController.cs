@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using kafka_dotnet_service.Services;
 
 namespace kafka_dotnet_service.Controllers
 {
@@ -13,6 +14,8 @@ namespace kafka_dotnet_service.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            Kafka kafka = new Kafka();
+            kafka.InitKafka();
             return new string[] { "value1", "value2" };
         }
 

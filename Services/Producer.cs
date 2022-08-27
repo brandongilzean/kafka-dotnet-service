@@ -1,14 +1,46 @@
 using Confluent.Kafka;
 using System.Net;
+using System;
 
-
-var config = new ProducerConfig
+namespace kafka_dotnet_service.Services
 {
-    BootstrapServers = "host1:9092,host2:9092",
-    ClientId = Dns.GetHostName(),
-};
+    public class Kafka {
 
 
-using (var producer = new ProducerBuilder<Null, string>(config).Build())
-{
+        public void InitKafka()
+        {
+            var config = new ProducerConfig
+            {
+                BootstrapServers = "localhost:9092",
+                ClientId = Dns.GetHostName(),
+            };
+            try
+            {
+                using (var producer = new ProducerBuilder<Null, string>(config).Build())
+                {
+                    var t = producer.ProduceAsync("input-topic", new Message<Null, string> { Value = "hello world" });
+                    t.ContinueWith(task =>
+                    {
+                        if (task.IsFaulted)
+                        {
+                        }
+                        else
+                        {
+
+                        Console.WriteLine($"Wrote to offset: {task.Result.Offset}");
+                    }
+                    });
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+
+        }
+
+    // using (var producer = new ProducerBuilder<Null, string>(config).Build())
+    // {
+    // }
+    }
 }
