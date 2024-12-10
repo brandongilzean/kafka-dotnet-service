@@ -10,7 +10,7 @@ docker-compose -f kafka-compose.yml up -d
 
 
 ### Dependencies
-I've added Confluent.Kafka by doing
+I've added Confluent.Kafka by doing the following:
 ``` 
 dotnet add package Confluent.Kafka
 ```
